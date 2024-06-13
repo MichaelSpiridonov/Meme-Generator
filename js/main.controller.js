@@ -14,6 +14,7 @@ function onInit() {
 function renderMeme() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
+    gCtx.textAlign = 'center'
 
     console.log('Rendering...')
     renderCanvas()
@@ -25,34 +26,41 @@ function renderCanvas() {
 
     const meme = getMeme()
     const image = getImg(meme.selectedImgId)
+    console.log(meme)
 
-    var elInput = document.querySelector('.top-txt')
-    elInput.value = meme.lines[meme.selectedLineIdx].txt
-
-    gCtx.font = `${meme.lines[meme.selectedLineIdx].size}px Arial`
-    gCtx.fillStyle = meme.lines[meme.selectedLineIdx].color
-    gCtx.strokeStyle = meme.lines[meme.selectedLineIdx].color
-    gCtx.lineWidth = 2
-    gCtx.textAlign = 'center'
-
-    gCtx.drawImage(image.url, 0, 0, gElCanvas.width, gElCanvas.height)
-    gCtx.fillText(meme.lines[meme.selectedLineIdx].txt, meme.lines[meme.selectedLineIdx].pos.x, meme.lines[meme.selectedLineIdx].pos.y)
-    gCtx.strokeText(meme.lines[meme.selectedLineIdx].txt, meme.lines[meme.selectedLineIdx].pos.x, meme.lines[meme.selectedLineIdx].pos.y)
-
-
-    image.url.onload = () => {
-        gCtx.drawImage(image.url, 0, 0, gElCanvas.width, gElCanvas.height)
-        gCtx.fillText(meme.lines[meme.selectedLineIdx].txt, meme.lines[meme.selectedLineIdx].pos.x, meme.lines[meme.selectedLineIdx].pos.y)
-        gCtx.strokeText(meme.lines[meme.selectedLineIdx].txt, meme.lines[meme.selectedLineIdx].pos.x, meme.lines[meme.selectedLineIdx].pos.y)
+    if (meme.lines.length) {
+        var elInput = document.querySelector('.top-txt')
+        elInput.value = meme.lines[meme.selectedLineIdx].txt
+        renderImgComponents(image)
+        renderTextComponents(meme.lines[meme.selectedLineIdx], image)
+    } else {
+        renderImgComponents(image)
     }
+    image.url.onload = () => {
+        renderImgComponents(image)
+        renderTextComponents(meme.lines[meme.selectedLineIdx], image)
+    }
+}
 
+function renderTextComponents(meme) {
+    gCtx.font = `${meme.size}px Arial`
+    gCtx.fillStyle = meme.color
+    gCtx.strokeStyle = meme.color
+    gCtx.lineWidth = 2
+    //gCtx.textAlign = 'center'
+    gCtx.fillText(meme.txt, meme.pos.x, meme.pos.y)
+    gCtx.strokeText(meme.txt, meme.pos.x, meme.pos.y)
+}
+
+function renderImgComponents(image) {
+    gCtx.drawImage(image.url, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
 function drawText(text, offsetX, offsetY) {
     gCtx.font = '40px Arial'
     gCtx.fillStyle = 'white'
     gCtx.lineWidth = 2
-    gCtx.textAlign = 'center'
+    //gCtx.textAlign = 'center'
 
     gCtx.fillText(text, offsetX, offsetY)
     gCtx.strokeText(text, offsetX, offsetY)
@@ -66,9 +74,7 @@ function setLineTxt(text) {
 
 
 function addText() {
-    gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
-    const topText = document.querySelector('.top-txt').value
-    const bottomText = document.querySelector('.bottom-txt').value
+
 }
 
 
@@ -138,13 +144,11 @@ function onDown(ev) {
     setTextDrag(true)
     gStartPos = pos
     document.body.style.cursor = 'grabbing'
-    document.querySelector('')
 }
 
 function onMove(ev) {
-    const {
-        isDrag
-    } = getMeme().lines[0]
+    if(!getMeme().lines[getMeme().selectedLineIdx]) return;
+    const {isDrag} = getMeme().lines[0]
     if (!isDrag) return
     const pos = getEvPos(ev)
     const dx = pos.x - gStartPos.x
@@ -194,4 +198,43 @@ function getEvPos(ev) {
         }
     }
     return pos
+}
+
+
+// Button Functionality.
+
+function setTxtColor(color) {
+    const meme = getMeme()
+    meme.lines[meme.selectedLineIdx].color = color.value
+    renderCanvas()
+}
+
+function setFontSize(size, toIncrease) {
+    const meme = getMeme()
+    if (toIncrease) meme.lines[meme.selectedLineIdx].size += size
+    else meme.lines[meme.selectedLineIdx].size -= size
+    renderCanvas()
+}
+
+function deleteText() {
+    const meme = getMeme()
+    meme.lines.pop()
+    const topText = document.querySelector('.top-txt')
+    topText.remove()
+    renderCanvas()
+}
+
+function setFontDirection(direction){
+    switch(direction){
+        case('center'):
+        gCtx.textAlign = "center"
+        break;
+        case('left'):
+        gCtx.textAlign = "left"
+        break;
+        case('right'):
+        gCtx.textAlign = "right"
+        break;
+
+    }
 }

@@ -79,7 +79,6 @@ function setTextDrag(isDrag) {
 }
 
 function moveText(dx, dy) {
-    console.log(gMeme)
     gMeme.lines[gMeme.selectedLineIdx].pos.x += dx
     gMeme.lines[gMeme.selectedLineIdx].pos.y += dy
 }
