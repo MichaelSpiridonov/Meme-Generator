@@ -27,23 +27,23 @@ function renderCanvas() {
     const image = getImg(meme.selectedImgId)
 
     var elInput = document.querySelector('.top-txt')
-    elInput.value = meme.lines[0].txt
+    elInput.value = meme.lines[meme.selectedLineIdx].txt
 
-    gCtx.font = `${meme.lines[0].size}px Arial`
-    gCtx.fillStyle = meme.lines[0].color
-    gCtx.strokeStyle = meme.lines[0].color
+    gCtx.font = `${meme.lines[meme.selectedLineIdx].size}px Arial`
+    gCtx.fillStyle = meme.lines[meme.selectedLineIdx].color
+    gCtx.strokeStyle = meme.lines[meme.selectedLineIdx].color
     gCtx.lineWidth = 2
     gCtx.textAlign = 'center'
 
     gCtx.drawImage(image.url, 0, 0, gElCanvas.width, gElCanvas.height)
-    gCtx.fillText(meme.lines[0].txt, meme.lines[0].pos.x, meme.lines[0].pos.y)
-    gCtx.strokeText(meme.lines[0].txt, meme.lines[0].pos.x, meme.lines[0].pos.y)
+    gCtx.fillText(meme.lines[meme.selectedLineIdx].txt, meme.lines[meme.selectedLineIdx].pos.x, meme.lines[meme.selectedLineIdx].pos.y)
+    gCtx.strokeText(meme.lines[meme.selectedLineIdx].txt, meme.lines[meme.selectedLineIdx].pos.x, meme.lines[meme.selectedLineIdx].pos.y)
 
 
     image.url.onload = () => {
         gCtx.drawImage(image.url, 0, 0, gElCanvas.width, gElCanvas.height)
-        gCtx.fillText(meme.lines[0].txt, meme.lines[0].pos.x, meme.lines[0].pos.y)
-        gCtx.strokeText(meme.lines[0].txt, meme.lines[0].pos.x, meme.lines[0].pos.y)
+        gCtx.fillText(meme.lines[meme.selectedLineIdx].txt, meme.lines[meme.selectedLineIdx].pos.x, meme.lines[meme.selectedLineIdx].pos.y)
+        gCtx.strokeText(meme.lines[meme.selectedLineIdx].txt, meme.lines[meme.selectedLineIdx].pos.x, meme.lines[meme.selectedLineIdx].pos.y)
     }
 
 }
@@ -60,7 +60,7 @@ function drawText(text, offsetX, offsetY) {
 
 function setLineTxt(text) {
     let meme = getMeme()
-    meme.lines[0].txt = text.value
+    meme.lines[meme.selectedLineIdx].txt = text.value
     renderCanvas()
 }
 
@@ -69,13 +69,6 @@ function addText() {
     gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
     const topText = document.querySelector('.top-txt').value
     const bottomText = document.querySelector('.bottom-txt').value
-
-    if (topText) {
-        drawText(topText, gElCanvas.width / 2, 50)
-    }
-    if (bottomText) {
-        drawText(bottomText, gElCanvas.width / 2, gElCanvas.height - 20)
-    }
 }
 
 
@@ -142,15 +135,16 @@ function shareToFacebook() {
 function onDown(ev) {
     const pos = getEvPos(ev)
     if (!isTextClicked(pos)) return
-    console.log('Does this work now?')
     setTextDrag(true)
-    console.log(pos)
     gStartPos = pos
     document.body.style.cursor = 'grabbing'
+    document.querySelector('')
 }
 
 function onMove(ev) {
-    const {isDrag} = getMeme().lines[0]
+    const {
+        isDrag
+    } = getMeme().lines[0]
     if (!isDrag) return
     const pos = getEvPos(ev)
     const dx = pos.x - gStartPos.x

@@ -71,9 +71,7 @@ function getImg(id) {
 
 function isTextClicked(clickedPos) {
     const { pos } = gMeme.lines[0]
-    // const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
-    // return distance <= gMeme.size
-    return (clickedPos.x >= pos.x && clickedPos.x <= pos.x + 500 && clickedPos.y >= pos.y - 500 && clickedPos.y <= pos.y);
+    return (clickedPos.x >= pos.x && clickedPos.x <= pos.x + 250 && clickedPos.y >= pos.y - 500 && clickedPos.y <= pos.y);
 }
 
 function setTextDrag(isDrag) {
@@ -81,6 +79,7 @@ function setTextDrag(isDrag) {
 }
 
 function moveText(dx, dy) {
-    gMeme.pos.x += dx
-    gMeme.pos.y += dy
+    console.log(gMeme)
+    gMeme.lines[gMeme.selectedLineIdx].pos.x += dx
+    gMeme.lines[gMeme.selectedLineIdx].pos.y += dy
 }
