@@ -23,8 +23,8 @@
         <canvas width="500" height="500"></canvas>
       </section>
       <section class="editor-section">
-        <input type="text" class="text-input top-txt" placeholder="Top text" onchange="drawText(event)">
-            <input type="text" class="text-input bottom-txt" placeholder="Bottom text" onchange="drawText(event)">
+        <input type="text" class="text-input top-txt" placeholder="Top text" oninput="setLineTxt(this)">
+            <input type="text" class="text-input bottom-txt" placeholder="Bottom text" oninput="setLineTxt(this)">
             <div class="controls">
                 <button class="control-btn">
                     <img src="icons/up-and-down-opposite-double-arrows-side-by-side.png" alt="Move Text">

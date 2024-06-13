@@ -26,15 +26,7 @@
 // ^^ As refrence
 var gId = 1
 var gImgs = []
-var gMeme = {
-    selectedImgId: 1,
-    selectedLineIdx: 0,
-    lines: [{
-        txt: 'I sometimes eat Falafel',
-        size: 40,
-        color: 'white'
-    }]
-}
+var gMeme
 var gKeywordSearchCountMap
 
 function createImgs() {
@@ -53,10 +45,39 @@ function _createImg() {
     }
 }
 
+function createMeme(pos) {
+    gMeme ={
+        selectedImgId: 1,
+        selectedLineIdx: 0,
+        lines: [{
+            pos,
+            txt: 'I sometimes eat Falafel',
+            size: 30,
+            color: 'white',
+            isDrag: false,
+        }]
+    }
+}
+
 function getMeme() {
     return gMeme
 }
 
 function getImg(id) {
     return gImgs.find(img => img.id === id)
+}
+
+function isTextClicked(clickedPos) {
+    const { pos } = gMeme.lines[0]
+    const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
+    return distance <= gMeme.size
+}
+
+function setTextDrag(isDrag) {
+    gMeme.lines[0].isDrag = isDrag
+}
+
+function moveText(dx, dy) {
+    gMeme.pos.x += dx
+    gMeme.pos.y += dy
 }
