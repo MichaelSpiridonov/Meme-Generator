@@ -47,40 +47,10 @@ function _createImg() {
     }
 }
 
-function createMeme() {
-    gMeme ={
-        selectedImgId: 1,
-        selectedLineIdx: 0,
-        lines: [{
-            pos: {x: 250, y: 50},
-            txt: 'I sometimes eat Falafel',
-            size: 30,
-            color: 'white',
-            isDrag: false,
-        }]
-    }
-}
-
 function getMeme() {
     return gMeme
 }
 
 function getImg(id) {
     return gImgs.find(img => img.id === id)
-}
-
-function isTextClicked(clickedPos) {
-    const { pos } = gMeme.lines[0]
-    // const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
-    // return distance <= gMeme.size
-    return (clickedPos.x >= pos.x && clickedPos.x <= pos.x + 500 && clickedPos.y >= pos.y - 500 && clickedPos.y <= pos.y);
-}
-
-function setTextDrag(isDrag) {
-    gMeme.lines[0].isDrag = isDrag
-}
-
-function moveText(dx, dy) {
-    gMeme.pos.x += dx
-    gMeme.pos.y += dy
 }
