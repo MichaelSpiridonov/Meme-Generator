@@ -48,7 +48,7 @@ main {
     align-items: center;
 }
 
-.meme-canvas {
+canvas {
     border: 1px solid #ccc;
 }
 

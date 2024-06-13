@@ -24,7 +24,23 @@
 //     'baby': 2
 // }
 // ^^ As refrence
-
-var gImgs
+var gId = 1
+var gImgs = []
 var gMeme
 var gKeywordSearchCountMap
+
+function createImgs() {
+    for (var i = 0; i < 18; i++) {
+        gImgs.push(_createImg())
+    }
+    console.log(gImgs)
+
+}
+
+function _createImg(){
+    return {
+        url: `img/${gId}.jpg`,
+        id: gId++,
+        keywords: ['funny', 'cat']
+    }
+}
