@@ -45,11 +45,7 @@ function createImgs() {
 
 function _createImg() {
     let image = new Image()
-<<<<<<<<< Temporary merge branch 1
     image.src = `img/${gId}.jpg`
-=========
-    image.src = `./img/${gId}.jpg`
->>>>>>>>> Temporary merge branch 2
     return {
         url: image,
         id: gId++,
