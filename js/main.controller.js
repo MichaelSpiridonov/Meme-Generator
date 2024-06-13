@@ -1,7 +1,6 @@
 'use strict'
 let gElCanvas
 let gCtx
-let image = new Image()
 
 function onInit() {
     createImgs()
@@ -18,44 +17,45 @@ function renderMeme() {
 }
 
 function renderCanvas() {
-    gCtx.font = '40px Arial'
-    gCtx.fillStyle = 'white'
-    gCtx.strokeStyle = 'black'
+    const meme = getMeme()
+    const image = getImg(meme.selectedImgId)
+    console.log(meme)
+    gCtx.font = `${meme.lines[0].size}px Arial`
+    gCtx.fillStyle = meme.lines[0].color
+    gCtx.strokeStyle = meme.lines[0].color
     gCtx.lineWidth = 2
     gCtx.textAlign = 'center'
-    image.src = '../img/1.jpg'
-    image.onload = () => {
-        gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
-        gCtx.fillText('Random Text', gElCanvas.width / 2, 50)
-        gCtx.strokeText('Random Text', gElCanvas.width / 2, 50)
+    image.url.onload = () => {
+        gCtx.drawImage(image.url, 0, 0, gElCanvas.width, gElCanvas.height)
+        gCtx.fillText(meme.lines[0].txt, gElCanvas.width / 2, 50)
+        gCtx.strokeText(meme.lines[0].txt, gElCanvas.width / 2, 50)
     }
 
 }
 
-function drawText(text, offsetX, offsetY) {
-    gCtx.font = '40px Arial'
-    gCtx.fillStyle = 'white'
-    gCtx.strokeStyle = 'black'
-    gCtx.lineWidth = 2
-    gCtx.textAlign = 'center'
+// function drawText(text, offsetX, offsetY) {
+//     gCtx.font = '40px Arial'
+//     gCtx.fillStyle = 'white'
+//     gCtx.lineWidth = 2
+//     gCtx.textAlign = 'center'
 
-    gCtx.fillText(text, offsetX, offsetY)
-    gCtx.strokeText(text, offsetX, offsetY)
-}
+//     gCtx.fillText(text, offsetX, offsetY)
+//     gCtx.strokeText(text, offsetX, offsetY)
+// }
 
 
-function addText() {
-    gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
-    const topText = document.querySelector('.top-txt').value
-    const bottomText = document.querySelector('.bottom-txt').value
+// function addText() {
+//     gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
+//     const topText = document.querySelector('.top-txt').value
+//     const bottomText = document.querySelector('.bottom-txt').value
 
-    if (topText) {
-        drawText(topText, gElCanvas.width / 2, 50)
-    }
-    if (bottomText) {
-        drawText(bottomText, gElCanvas.width / 2, gElCanvas.height - 20)
-    }
-}
+//     if (topText) {
+//         drawText(topText, gElCanvas.width / 2, 50)
+//     }
+//     if (bottomText) {
+//         drawText(bottomText, gElCanvas.width / 2, gElCanvas.height - 20)
+//     }
+// }
 
 
 
