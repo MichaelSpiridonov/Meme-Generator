@@ -6,6 +6,7 @@ const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 function onInit() {
     createImgs()
+    createMeme()
     renderMeme()
 }
 
@@ -33,6 +34,12 @@ function renderCanvas() {
     gCtx.strokeStyle = meme.lines[0].color
     gCtx.lineWidth = 2
     gCtx.textAlign = 'center'
+
+    gCtx.drawImage(image.url, 0, 0, gElCanvas.width, gElCanvas.height)
+    gCtx.fillText(meme.lines[0].txt, meme.lines[0].pos.x, meme.lines[0].pos.y)
+    gCtx.strokeText(meme.lines[0].txt, meme.lines[0].pos.x, meme.lines[0].pos.y)
+
+
     image.url.onload = () => {
         gCtx.drawImage(image.url, 0, 0, gElCanvas.width, gElCanvas.height)
         gCtx.fillText(meme.lines[0].txt, meme.lines[0].pos.x, meme.lines[0].pos.y)
@@ -41,11 +48,11 @@ function renderCanvas() {
 
 }
 
-// function drawText(text, offsetX, offsetY) {
-//     gCtx.font = '40px Arial'
-//     gCtx.fillStyle = 'white'
-//     gCtx.lineWidth = 2
-//     gCtx.textAlign = 'center'
+function drawText(text, offsetX, offsetY) {
+    gCtx.font = '40px Arial'
+    gCtx.fillStyle = 'white'
+    gCtx.lineWidth = 2
+    gCtx.textAlign = 'center'
 
     gCtx.fillText(text, offsetX, offsetY)
     gCtx.strokeText(text, offsetX, offsetY)
@@ -126,4 +133,71 @@ function shareToFacebook() {
         XHR.open('POST', '//ca-upload.com/here/upload.php')
         XHR.send(formData)
     }
+}
+
+
+
+// Movmenet
+
+function onDown(ev) {
+    const pos = getEvPos(ev)
+    if (!isTextClicked(pos)) return
+    console.log('Does this work now?')
+    setTextDrag(true)
+    console.log(pos)
+    gStartPos = pos
+    document.body.style.cursor = 'grabbing'
+}
+
+function onMove(ev) {
+    const {isDrag} = getMeme().lines[0]
+    if (!isDrag) return
+    const pos = getEvPos(ev)
+    const dx = pos.x - gStartPos.x
+    const dy = pos.y - gStartPos.y
+    moveText(dx, dy)
+    gStartPos = pos
+    renderCanvas()
+}
+
+function onUp() {
+    setTextDrag(false)
+    document.body.style.cursor = 'grab'
+}
+
+function addListeners() {
+    addMouseListeners()
+    addTouchListeners()
+    renderCanvas()
+}
+
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchend', onUp)
+}
+
+
+function getEvPos(ev) {
+
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+
+    if (TOUCH_EVS.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+        }
+    }
+    return pos
 }
