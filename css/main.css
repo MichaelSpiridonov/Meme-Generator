@@ -1,8 +1,10 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 header {
@@ -35,6 +37,97 @@ main {
     padding: 20px;
 }
 
+.main-controls {
+    margin: auto;
+}
+
+.meme-section {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.meme-canvas {
+    border: 1px solid #ccc;
+}
+
+.editor-section {
+    flex: 1;
+    background-color: #f0f0f0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text-input {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.controls, .sticker-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.control-btn {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.control-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.carousel {
+    display: flex;
+    overflow: hidden;
+    width: 80px;
+}
+
+.carousel .sticker {
+    min-width: 80px;
+    text-align: center;
+    font-size: 24px;
+    padding: 10px 0px;
+    cursor: pointer;
+}
+
+.carousel-btn {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.util-btns {
+    display: flex;
+}
+
 .util-btns button {
     background-color: orange;
     color: white;
@@ -44,6 +137,7 @@ main {
     cursor: pointer;
     margin-top: 20px;
     border-radius: 5px;
+    margin: 5px;
 }
 
 footer {
@@ -56,4 +150,13 @@ footer {
 .footer-text {
     margin: 5px 0;
 }
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
 
+    .editor-section {
+        width: 100%;
+    }
+}

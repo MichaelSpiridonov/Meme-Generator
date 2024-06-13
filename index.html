@@ -23,7 +23,55 @@
         <canvas class="meme-canvas"="500" height="500"></canvas>
       </section>
       <section class="editor-section">
+        <input type="text" id="topText" placeholder="Top text" class="text-input">
+            <input type="text" id="bottomText" placeholder="Bottom text" class="text-input">
+            <div class="controls">
+                <button class="control-btn">
+                    <img src="icons/up-and-down-opposite-double-arrows-side-by-side.png" alt="Move Text">
+                </button>
+                <button class="control-btn">
+                    <img src="icons/add.png" alt="Add Text">
+                </button>
+                <button class="control-btn">
+                    <img src="icons/trash.png" alt="Delete Text">
+                </button>
+                <button class="control-btn">
+                    <img src="icons/increase font - icon.png" alt="Increase Font Size">
+                </button>
+                <button class="control-btn">
+                    <img src="icons/decrease font - icon.png" alt="Decrease Font Size">
+                </button>
+                <button class="control-btn">
+                    <img src="icons/align-to-left.png" alt="Align Left">
+                </button>
+                <button class="control-btn">
+                    <img src="icons/center-text-alignment.png" alt="Align Center">
+                </button>
+                <button class="control-btn">
+                    <img src="icons/align-to-right.png" alt="Align Right">
+                </button>
+                <label for="color-input">
+                  <img class="control-btn" src="icons/paint-board-and-brush.png" alt="Color picker icon">
+                </label>
+                <input class="control-btn" type="color" id="color-input" style="display: none;">
+            </div>
+            <div class="sticker-section">
+                <button class="carousel-btn" id="prevSticker">❮</button>
+                <div class="carousel">
+                    <div class="sticker" id="sticker1">🎁</div>
+                    <div class="sticker" id="sticker2">👒</div>
+                    <div class="sticker" id="sticker3">👓</div>
+                    <div class="sticker" id="sticker4">👴</div>
+                </div>
+                <button class="carousel-btn" id="nextSticker">❯</button>
+            </div>
+            <div class="util-btns">
+              <button class="share-btn"><i class="fa-solid fa-share"></i> Share</button>
+              <button class="download-btn"><i class="fa-solid fa-download"></i> Download</button>
+              <button class="save-btn"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+            </div>
       </section>
+      
     </main>
     <footer>
       <p class="footer-text">memegen</p>
