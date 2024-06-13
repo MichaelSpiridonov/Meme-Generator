@@ -45,7 +45,7 @@ function createImgs() {
 
 function _createImg() {
     let image = new Image()
-    image.src = `./img/${gId}.jpg`
+    image.src = `/img/${gId}.jpg`
     return {
         url: image,
         id: gId++,
