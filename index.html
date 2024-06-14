@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meme Generator</title>
     <script src="https://kit.fontawesome.com/287346be32.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/main.css"/>
   </head>
   <body onload="onInit()">
     <header>
@@ -18,11 +18,29 @@
       </nav>
     </header>
     <main>
-      <section class="gallery-section"></section>
-      <section class="editor-section">
+      <section class="gallery-section">
+        <div class="search-bar">
+          <input type="text" placeholder="Enter search keyword">
+      </div>
+      <nav>
+          <ul>
+              <li>funny</li>
+              <li>comics</li>
+              <li>dogs</li>
+              <li>drinks</li>
+              <li>books</li>
+              <li>more...</li>
+          </ul>
+      </nav>
+  </header>
+      <div class="image-grid">
+          <!-- Images will be loaded here by JavaScript -->
+      </div>
+      </section>
+      <section class="canvas-section hidden">
         <canvas width="500" height="500" style="border:2px solid #bbb; margin-left:10px; margin-top:10px;"></canvas>
       </section>
-      <section class="editor-section">
+    <section class="editor-section hidden">
         <input type="text" class="text-input top-txt" placeholder="text" oninput="setLineTxt(this)">
         <input type="text" class="text-input bottom-txt" placeholder="text" oninput="setLineTxt(this)">
             <div class="controls">
@@ -79,6 +97,8 @@
     </footer>
     <script src="js/storage.service.js"></script>
     <script src="js/meme.service.js"></script>
-    <script src="js/main.controller.js"></script>
+    <script src="js/gallery.service.js"></script>
+    <script src="js/meme.controller.js"></script>
+    <script src="js/gallery.controller.js"></script>
   </body>
 </html>

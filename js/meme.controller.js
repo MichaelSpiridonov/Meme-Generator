@@ -4,12 +4,10 @@ let gCtx
 let gStartPos
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
-function onInit() {
-    createImgs()
+function onImgPick() {
     createMeme()
     renderMeme()
 }
-
 
 function renderMeme() {
     gElCanvas = document.querySelector('canvas')
@@ -26,7 +24,6 @@ function renderCanvas() {
 
     const meme = getMeme()
     const image = getImg(meme.selectedImgId)
-    console.log(meme)
 
     if (meme.lines.length) {
         var elInput = document.querySelector('.top-txt')
@@ -47,7 +44,14 @@ function renderTextComponents(meme) {
     gCtx.fillStyle = meme.color
     gCtx.strokeStyle = meme.color
     gCtx.lineWidth = 2
+    var textWidth = gCtx.measureText(meme.txt).width;
+    // var lineHeight = meme.size * 1.8642
     //gCtx.textAlign = 'center'
+    const padding = 1
+    const totalWidth = textWidth + padding * 2
+    const totalHeight = meme.size + padding * 2
+    //gCtx.strokeRect(meme.pos.x - 180, meme.pos.y - 37, textWidth, lineHeight)
+    gCtx.strokeRect(meme.pos.x, meme.pos.y, totalWidth - padding * 3, totalHeight - padding * 2)
     gCtx.fillText(meme.txt, meme.pos.x, meme.pos.y)
     gCtx.strokeText(meme.txt, meme.pos.x, meme.pos.y)
 }
@@ -56,19 +60,31 @@ function renderImgComponents(image) {
     gCtx.drawImage(image.url, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function drawText(text, offsetX, offsetY) {
-    gCtx.font = '40px Arial'
-    gCtx.fillStyle = 'white'
-    gCtx.lineWidth = 2
-    //gCtx.textAlign = 'center'
+// function drawText(text, offsetX, offsetY) {
+//     // gCtx.font = '40px Arial'
+//     // gCtx.fillStyle = 'white'
+//     // gCtx.lineWidth = 2
 
-    gCtx.fillText(text, offsetX, offsetY)
-    gCtx.strokeText(text, offsetX, offsetY)
-}
+//     //var textWidth = gCtx.measureText(text).width;
+
+
+//     const borderColor = 'red';
+//     const textColor = 'black';
+//     const textMetrics = gCtx.measureText(text);
+//     const textWidth = textMetrics.width;
+//     const textHeight = fontSize;
+
+
+//     // gCtx.strokeRect(offsetX, offsetY, textWidth, lineHeight)
+//     // gCtx.fillText(text, offsetX, offsetY)
+//     // gCtx.fillText(text, padding + padding / 2, padding + textHeight)
+//     //gCtx.strokeText(text, offsetX, offsetY)
+//     // gCtx.strokeRect(offsetX, offsetY, textWidth, lineHeight)
+// }
 
 function setLineTxt(text) {
-    let meme = getMeme()
-    meme.lines[meme.selectedLineIdx].txt = text.value
+    let meme = getMeme().lines[getMeme().selectedLineIdx]
+    meme.txt = text.value
     renderCanvas()
 }
 
@@ -147,8 +163,10 @@ function onDown(ev) {
 }
 
 function onMove(ev) {
-    if(!getMeme().lines[getMeme().selectedLineIdx]) return;
-    const {isDrag} = getMeme().lines[0]
+    if (!getMeme().lines[getMeme().selectedLineIdx]) return;
+    const {
+        isDrag
+    } = getMeme().lines[0]
     if (!isDrag) return
     const pos = getEvPos(ev)
     const dx = pos.x - gStartPos.x
@@ -209,6 +227,10 @@ function setTxtColor(color) {
     renderCanvas()
 }
 
+function setTextBorder(text) {
+    
+}
+
 function setFontSize(size, toIncrease) {
     const meme = getMeme()
     if (toIncrease) meme.lines[meme.selectedLineIdx].size += size
@@ -224,17 +246,17 @@ function deleteText() {
     renderCanvas()
 }
 
-function setFontDirection(direction){
-    switch(direction){
-        case('center'):
-        gCtx.textAlign = "center"
-        break;
-        case('left'):
-        gCtx.textAlign = "left"
-        break;
-        case('right'):
-        gCtx.textAlign = "right"
-        break;
+function setFontDirection(direction) {
+    switch (direction) {
+        case ('center'):
+            gCtx.textAlign = "center"
+            break;
+        case ('left'):
+            gCtx.textAlign = "left"
+            break;
+        case ('right'):
+            gCtx.textAlign = "right"
+            break;
 
     }
 }
