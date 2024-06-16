@@ -7,6 +7,7 @@ const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 function onImgPick() {
     createMeme()
     renderMeme()
+    displayEditor()
 }
 
 function renderMeme() {
@@ -26,10 +27,11 @@ function renderCanvas() {
     const image = getImg(meme.selectedImgId)
 
     if (meme.lines.length) {
-        var elInput = document.querySelector('.top-txt')
-        elInput.value = meme.lines[meme.selectedLineIdx].txt
-        renderImgComponents(image)
-        renderTextComponents(meme.lines[meme.selectedLineIdx], image)
+        meme.lines.forEach(meme => {
+            console.log(meme)
+            renderImgComponents(image)
+            renderTextComponents(meme.txt, meme.size, meme.color, meme.pos.x, meme.pos.y)
+        });
     } else {
         renderImgComponents(image)
     }
@@ -39,21 +41,26 @@ function renderCanvas() {
     }
 }
 
-function renderTextComponents(meme) {
-    gCtx.font = `${meme.size}px Arial`
-    gCtx.fillStyle = meme.color
-    gCtx.strokeStyle = meme.color
+function renderTextComponents(txt, size, color, offsetX, offsetY) {
+    // var elInput = document.querySelector('.top-txt')
+    // elInput.value = meme.lines[meme.selectedLineIdx].txt
+
+    gCtx.font = `${size}px Arial`
+    gCtx.fillStyle = color
+    gCtx.strokeStyle = color
     gCtx.lineWidth = 2
-    var textWidth = gCtx.measureText(meme.txt).width;
+    var textWidth = gCtx.measureText(txt).width;
+
     // var lineHeight = meme.size * 1.8642
     //gCtx.textAlign = 'center'
+
     const padding = 1
     const totalWidth = textWidth + padding * 2
-    const totalHeight = meme.size + padding * 2
+    const totalHeight = size + padding * 2
     //gCtx.strokeRect(meme.pos.x - 180, meme.pos.y - 37, textWidth, lineHeight)
-    gCtx.strokeRect(meme.pos.x, meme.pos.y, totalWidth - padding * 3, totalHeight - padding * 2)
-    gCtx.fillText(meme.txt, meme.pos.x, meme.pos.y)
-    gCtx.strokeText(meme.txt, meme.pos.x, meme.pos.y)
+    gCtx.strokeRect(offsetX, offsetY, totalWidth - padding * 3, totalHeight - padding * 2)
+    gCtx.fillText(txt, offsetX, offsetY)
+    gCtx.strokeText(txt, offsetX, offsetY)
 }
 
 function renderImgComponents(image) {
@@ -87,13 +94,6 @@ function setLineTxt(text) {
     meme.txt = text.value
     renderCanvas()
 }
-
-
-function addText() {
-
-}
-
-
 
 function downloadCanvas() {
     const dataUrl = gElCanvas.toDataURL()
@@ -221,6 +221,11 @@ function getEvPos(ev) {
 
 // Button Functionality.
 
+function addText() {
+    createLine()
+    renderCanvas()
+}
+
 function setTxtColor(color) {
     const meme = getMeme()
     meme.lines[meme.selectedLineIdx].color = color.value
@@ -228,7 +233,7 @@ function setTxtColor(color) {
 }
 
 function setTextBorder(text) {
-    
+
 }
 
 function setFontSize(size, toIncrease) {
@@ -259,4 +264,15 @@ function setFontDirection(direction) {
             break;
 
     }
+}
+
+
+function displayEditor() {
+    var galleryContainer = document.querySelector('.gallery-section')
+    var editorContainer = document.querySelector('.editor-section')
+    var canvasContainer = document.querySelector('.canvas-section')
+    galleryContainer.classList.add('hidden')
+    editorContainer.classList.remove('hidden')
+    editorContainer.classList.add('flex')
+    canvasContainer.classList.remove('hidden')
 }

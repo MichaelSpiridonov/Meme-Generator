@@ -18,11 +18,34 @@ function createMeme() {
                 x: 250,
                 y: 50
             },
-            txt: 'I sometimes eat Falafel',
-            size: 30,
+            txt: 'Add Text Here',
+            size: 24,
+            color: 'white',
+            isDrag: false,
+        }, 
+        {
+            pos: {
+                x: 250,
+                y: 500
+            },
+            txt: 'Add Text Here',
+            size: 24,
             color: 'white',
             isDrag: false,
         }]
+    }
+}
+
+function createLine() {
+    return {
+        pos: {
+            x: 250,
+            y: 50
+        },
+        txt: 'Add Text Here',
+        size: 24,
+        color: 'white',
+        isDrag: false,
     }
 }
 

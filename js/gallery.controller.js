@@ -11,9 +11,12 @@ function renderImgs() {
     var imgContainer = document.querySelector('.image-grid')
     const imgs = getImgs()
     imgs.forEach(img => {
-        const imgs = document.createElement('img');
+        const imgs = document.createElement('img')
         imgs.src = img.url.src
-        imgContainer.appendChild(imgs);
+        imgs.onclick = function () {
+            onImgClick()
+        }
+        imgContainer.appendChild(imgs)
     })
 }
 
@@ -28,6 +31,7 @@ function displayGallery() {
 
 
 function onImgClick() {
+    console.log('This works!')
     onImgPick()
 }
 

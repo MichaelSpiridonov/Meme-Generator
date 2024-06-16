@@ -22,10 +22,11 @@ nav ul li {
 
 .image-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 10px;
     padding: 20px;
 }
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -34,12 +35,34 @@ nav ul li {
         align-items: flex-start;
     }
 
-    nav ul {
-        flex-direction: column;
-        gap: 5px;
-    }
-
     .image-grid {
         grid-template-columns: 1fr;
+    }
+    .main-nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #ff7f0e;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        z-index: 1;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .main-nav ul li {
+        padding: 10px 20px;
+    }
+
+    .menu a {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
     }
 }
