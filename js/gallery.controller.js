@@ -34,7 +34,6 @@ function displayGallery() {
 function onImgClick(img) {
     const imageId = img.getAttribute('data-id')
     createMeme(imageId)
-
     onImgPick()
 }
 

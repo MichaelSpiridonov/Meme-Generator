@@ -36,11 +36,11 @@ function createMeme(imageId) {
     }
 }
 
-function createLine() {
+function createLine(pos=50) {
     return {
         pos: {
             x: 250,
-            y: 100
+            y: pos + 30
         },
         txt: 'Add Text Here',
         size: 24,
@@ -53,9 +53,9 @@ function getMeme() {
     return gMeme
 }
 
-function isTextClicked(clickedPos) {
+function isTextClicked(clickedPos, textWidth) {
     const { pos } = gMeme.lines[gMeme.selectedLineIdx]
-    return (clickedPos.x >= pos.x && clickedPos.x <= pos.x + 250 && clickedPos.y >= pos.y - 500 && clickedPos.y <= pos.y);
+    return clickedPos.x >= pos.x - textWidth && clickedPos.x <= pos.x + textWidth && clickedPos.y >= pos.y - 10 && clickedPos.y<= pos.y + 10
 }
 
 function setTextDrag(isDrag) {
