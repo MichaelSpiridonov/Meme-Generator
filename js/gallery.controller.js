@@ -13,8 +13,9 @@ function renderImgs() {
     imgs.forEach(img => {
         const imgs = document.createElement('img')
         imgs.src = img.url.src
+        imgs.setAttribute('data-id', img.id);
         imgs.onclick = function () {
-            onImgClick()
+            onImgClick(this)
         }
         imgContainer.appendChild(imgs)
     })
@@ -30,8 +31,10 @@ function displayGallery() {
 }
 
 
-function onImgClick() {
-    console.log('This works!')
+function onImgClick(img) {
+    const imageId = img.getAttribute('data-id')
+    createMeme(imageId)
+
     onImgPick()
 }
 
