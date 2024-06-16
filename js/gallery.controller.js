@@ -1,5 +1,6 @@
 'use strict'
 
+let gStickerIndex = 0;
 
 function onInit() {
     createImgs()
@@ -7,7 +8,7 @@ function onInit() {
 }
 
 
-function renderImgs() { 
+function renderImgs() {
     var imgContainer = document.querySelector('.image-grid')
     const imgs = getImgs()
     imgs.forEach(img => {
@@ -37,3 +38,18 @@ function onImgClick(img) {
     onImgPick()
 }
 
+function updateCarousel(direction) {
+    const stickers = document.querySelectorAll('.sticker');
+    console.log(direction)
+    if (direction === 'next') {
+        if (gStickerIndex > stickers.length - 1)
+            gStickerIndex = 0
+        else gStickerIndex++
+    } else {
+        if (gStickerIndex > 0) gStickerIndex--
+        else gStickerIndex = stickers.length - 1
+    }
+
+    const carousel = document.querySelector('.carousel')
+    carousel.scrollLeft = gStickerIndex * 80;
+}

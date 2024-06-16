@@ -22,6 +22,7 @@ function createMeme(imageId) {
             size: 24,
             color: 'white',
             isDrag: false,
+            font: 'Ariel',
         }, 
         {
             pos: {
@@ -32,17 +33,18 @@ function createMeme(imageId) {
             size: 24,
             color: 'white',
             isDrag: false,
+            font: 'Impact',
         }]
     }
 }
 
-function createLine(pos=50) {
+function createLine(pos=20, text='Add Text Here') {
     return {
         pos: {
             x: 250,
             y: pos + 30
         },
-        txt: 'Add Text Here',
+        txt: text,
         size: 24,
         color: 'white',
         isDrag: false,

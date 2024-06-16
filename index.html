@@ -44,15 +44,17 @@
     <section class="editor-section hidden">
         <input type="text" class="text-input" placeholder="Add Text Here" oninput="setLineTxt(this)">
             <div class="controls">
+              <div class="controls">
                 <button class="control-btn">
-                    <img src="icons/up-and-down-opposite-double-arrows-side-by-side.png" alt="Move Text" onclick="switchToNextText()">
-                </button>
-                <button class="control-btn add-txt-btn" onclick="addText()">
-                    <img src="icons/add.png" alt="Add Text">
-                </button>
-                <button class="control-btn">
-                    <img src="icons/trash.png" alt="Delete Text" onclick="deleteText()">
-                </button>
+                  <img src="icons/up-and-down-opposite-double-arrows-side-by-side.png" alt="Move Text" onclick="switchToNextText()">
+              </button>
+              <button class="control-btn add-txt-btn" onclick="addText()">
+                  <img src="icons/add.png" alt="Add Text">
+              </button>
+              <button class="control-btn">
+                  <img src="icons/trash.png" alt="Delete Text" onclick="deleteText()">
+              </button>
+              </div>
                 <button class="control-btn">
                     <img src="icons/increase font - icon.png" alt="Increase Font Size" onclick="setFontSize(2, true)">
                 </button>
@@ -73,16 +75,26 @@
                 </label>
                 <input class="control-btn" type="color" id="color-input" style="display: none;" oninput="setTxtColor(this)">
             </div>
+            <select class="font-selector" onchange="setFont(this)">
+              <option value="Impact">Impact</option>
+              <option value="Ariel">Ariel</option>
+              <option value="Verdana">Verdana</option>
+              <option value="Tahoma">Tahoma</option>
+              <option value="Trebuchet Ms">Trebuchet Ms</option>
+              <option value="Times New Roman">Times New Roman</option>
+              <option value="Georgia">Georgia</option>
+            </select>
             <div class="sticker-section">
-                <button class="carousel-btn" id="prevSticker">❮</button>
+                <button class="carousel-btn" id="prevSticker" onclick="updateCarousel('prev')">❮</button>
                 <div class="carousel">
-                    <div class="sticker" id="sticker1">🎁</div>
-                    <div class="sticker" id="sticker2">👒</div>
-                    <div class="sticker" id="sticker3">👓</div>
-                    <div class="sticker" id="sticker4">👴</div>
+                    <div class="sticker" onclick="renderSticker('🎁')">🎁</div>
+                    <div class="sticker" onclick="renderSticker('👒')">👒</div>
+                    <div class="sticker" onclick="renderSticker('👓')">👓</div>
+                    <div class="sticker" onclick="renderSticker('👴')">👴</div>
                 </div>
-                <button class="carousel-btn" id="nextSticker">❯</button>
+                <button class="carousel-btn" id="nextSticker" onclick="updateCarousel('next')">❯</button>
             </div>
+
             <div class="util-btns">
               <button class="share-btn" onclick="shareToFacebook()"><i class="fa-solid fa-share"></i> Share</button>
               <button class="download-btn" onclick="downloadCanvas()" download><i class="fa-solid fa-download"></i> Download</button>
@@ -92,8 +104,8 @@
       
     </main>
     <footer>
-      <p class="footer-text">memegen</p>
-      <p class="footer-text">all rights reserved 2019</p>
+      <p class="footer-text">Memegen</p>
+      <p class="footer-text">All Rights Reserved 2019</p>
     </footer>
     <script src="js/storage.service.js"></script>
     <script src="js/editor.service.js"></script>

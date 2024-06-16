@@ -27,15 +27,15 @@ function renderCanvas() {
     const image = getImg(meme.selectedImgId)
     renderImgComponents(image)
     meme.lines.forEach(meme => {
-        renderTextComponent(meme.txt, meme.size, meme.color, meme.pos.x, meme.pos.y)
+        renderTextComponent(meme.txt, meme.size, meme.font, meme.color, meme.pos.x, meme.pos.y)
     });
 
 }
 
-function renderTextComponent(txt, size, color, offsetX, offsetY) {
-    gCtx.font = `${size}px Arial`
+function renderTextComponent(txt, size, font, color, offsetX, offsetY) {
+    gCtx.font = `${size}px ${font}`
+    gCtx.strokeStyle = 'black'
     gCtx.fillStyle = color
-    gCtx.strokeStyle = color
     gCtx.lineWidth = 2
     gCtx.textAlign = 'center';
     gCtx.fillText(txt, offsetX, offsetY)
@@ -49,9 +49,9 @@ function renderImgComponents(image) {
 
 function setTextBorder() {
     let meme = getMeme()
-    console.log(meme)
     meme = meme.lines[meme.selectedLineIdx]
     var textWidth = gCtx.measureText(meme.txt).width;
+    gCtx.strokeStyle = 'white'
 
     const padding = 2;
     const totalWidth = textWidth + padding * 2;
@@ -66,7 +66,7 @@ function setTextBorder() {
 function setLineTxt(text) {
     let meme = getMeme()
     meme = meme.lines[meme.selectedLineIdx]
-    if(!meme) return;
+    if (!meme) return;
     meme.txt = text.value
     setTextInput()
     renderCanvas()
@@ -200,8 +200,10 @@ function getEvPos(ev) {
 
 function addText() {
     const meme = getMeme()
+    var input = document.querySelector('.text-input')
     let newLine
-    if(!meme.lines.length) newLine = createLine()
+    if (!meme.lines.length && !input.value) newLine = createLine()
+    else if (input.value && !meme.lines.length) newLine = createLine(undefined , input.value)
     else newLine = createLine(meme.lines[meme.selectedLineIdx].pos.y)
     meme.lines.push(newLine)
     meme.selectedLineIdx = meme.lines.length - 1
@@ -247,14 +249,26 @@ function setFontDirection(direction) {
     }
 }
 
+function setFont(font) {
+    const meme = getMeme()
+    meme.lines[meme.selectedLineIdx].font = font.value
+    renderCanvas()
+}
+
 function switchToNextText() {
     const meme = getMeme()
     if (!meme.lines.length) return
     var nextIdx = meme.selectedLineIdx + 1
-    if(nextIdx >= meme.lines.length) meme.selectedLineIdx = 0
+    if (nextIdx > meme.lines.length - 1) meme.selectedLineIdx = 0
     else meme.selectedLineIdx++
     renderCanvas()
     setTextInput()
+}
+
+function renderSticker(sticker) {
+    const meme = getMeme()
+    meme.lines.push(createLine(undefined , `${sticker}`))
+    renderCanvas()
 }
 
 // DOM Stuff
@@ -275,5 +289,3 @@ function setTextInput() {
     if (!meme) return input.value = ''
     input.value = meme.txt
 }
-
-
