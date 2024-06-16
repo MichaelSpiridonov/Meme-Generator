@@ -22,10 +22,3 @@ nav a {
     margin-left: 20px;
     text-decoration: none;
 }
-
-.hamburger {
-    display: none;
-    font-size: 24px;
-    cursor: pointer;
-    margin-left: 20px;
-}

@@ -22,7 +22,7 @@ function createMeme(imageId) {
             size: 24,
             color: 'white',
             isDrag: false,
-            font: 'Ariel',
+            font: 'Impact',
         }, 
         {
             pos: {
@@ -48,6 +48,7 @@ function createLine(pos=20, text='Add Text Here') {
         size: 24,
         color: 'white',
         isDrag: false,
+        font: 'Impact',
     }
 }
 

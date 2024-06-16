@@ -17,10 +17,10 @@ function renderMeme() {
     console.log('Rendering...')
     renderCanvas()
     addListeners()
-    setTextInput()
+    setInputs()
 }
 
-function renderCanvas() {
+function renderCanvas(userImg) {
     gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
 
     const meme = getMeme()
@@ -35,8 +35,8 @@ function renderCanvas() {
 function renderTextComponent(txt, size, font, color, offsetX, offsetY) {
     gCtx.font = `${size}px ${font}`
     gCtx.fillStyle = color
+    gCtx.lineWidth = 
     gCtx.strokeStyle = 'black'
-    gCtx.lineWidth = 2
     gCtx.textAlign = 'center';
     gCtx.fillText(txt, offsetX, offsetY)
     gCtx.strokeText(txt, offsetX, offsetY)
@@ -67,7 +67,7 @@ function setLineTxt(text) {
     meme = meme.lines[meme.selectedLineIdx]
     if (!meme) return;
     meme.txt = text.value
-    setTextInput()
+    setInputs()
     renderCanvas()
 }
 
@@ -208,7 +208,7 @@ function addText() {
     meme.selectedLineIdx = meme.lines.length - 1
     setTextBorder()
     renderCanvas()
-    setTextInput()
+    setInputs()
 }
 
 function setTxtColor(color) {
@@ -229,7 +229,7 @@ function deleteText() {
     console.log(meme)
     meme.lines.splice(meme.selectedLineIdx, 1)
     switchToNextText()
-    setTextInput()
+    setInputs()
     renderCanvas()
 }
 
@@ -261,7 +261,7 @@ function switchToNextText() {
     if (nextIdx > meme.lines.length - 1) meme.selectedLineIdx = 0
     else meme.selectedLineIdx++
     renderCanvas()
-    setTextInput()
+    setInputs()
 }
 
 function renderSticker(sticker) {
@@ -282,9 +282,34 @@ function displayEditor() {
 }
 
 
-function setTextInput() {
+function setInputs() {
     const meme = getMeme().lines[getMeme().selectedLineIdx]
     var input = document.querySelector('.text-input')
     if (!meme) return input.value = ''
     input.value = meme.txt
+    var fontInput = document.querySelector('.font-selector')
+    fontInput.value = meme.font
+}
+
+
+
+// Uploading Image from user Attempt
+function onImgInput(ev) {
+        loadImageFromInput(ev, loadUserImage)
+    
+    // Read the file from the input
+    // When done send the image to the callback function
+    function loadImageFromInput(ev, onImageReady) {
+        const reader = new FileReader()
+        reader.onload = function (event) {
+            let elImg = new Image()
+            elImg.src = event.target.result
+            elImg.onload = () => onImageReady(elImg)
+        }
+        reader.readAsDataURL(ev.target.files[0])
+    }
+
+    function loadUserImage(elImg) {
+        gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+    }
 }
