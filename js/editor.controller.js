@@ -34,8 +34,8 @@ function renderCanvas() {
 
 function renderTextComponent(txt, size, font, color, offsetX, offsetY) {
     gCtx.font = `${size}px ${font}`
-    gCtx.strokeStyle = 'black'
     gCtx.fillStyle = color
+    gCtx.strokeStyle = 'black'
     gCtx.lineWidth = 2
     gCtx.textAlign = 'center';
     gCtx.fillText(txt, offsetX, offsetY)
@@ -51,7 +51,6 @@ function setTextBorder() {
     let meme = getMeme()
     meme = meme.lines[meme.selectedLineIdx]
     var textWidth = gCtx.measureText(meme.txt).width;
-    gCtx.strokeStyle = 'white'
 
     const padding = 2;
     const totalWidth = textWidth + padding * 2;
@@ -60,7 +59,7 @@ function setTextBorder() {
     const offsetX_centered = meme.pos.x - totalWidth / 2;
     const offsetY_centered = meme.pos.y - totalHeight / 2;
 
-    gCtx.strokeRect(offsetX_centered - padding * 5, offsetY_centered - padding * 5, totalWidth + padding * 5, totalHeight + padding * 5)
+    gCtx.strokeRect(offsetX_centered - padding * 2, offsetY_centered - padding * 7, totalWidth + padding * 5, totalHeight + padding * 5)
 }
 
 function setLineTxt(text) {
