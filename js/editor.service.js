@@ -36,13 +36,13 @@ function createMeme(imageId) {
     }
 }
 
-function createLine(pos=50) {
+function createLine(pos=50, text='Add Text Here') {
     return {
         pos: {
             x: 250,
             y: pos + 30
         },
-        txt: 'Add Text Here',
+        txt: text,
         size: 24,
         color: 'white',
         isDrag: false,

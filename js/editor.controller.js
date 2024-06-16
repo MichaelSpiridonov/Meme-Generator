@@ -251,10 +251,16 @@ function switchToNextText() {
     const meme = getMeme()
     if (!meme.lines.length) return
     var nextIdx = meme.selectedLineIdx + 1
-    if(nextIdx >= meme.lines.length) meme.selectedLineIdx = 0
+    if(nextIdx > meme.lines.length - 1) meme.selectedLineIdx = 0
     else meme.selectedLineIdx++
     renderCanvas()
     setTextInput()
+}
+
+function renderSticker(sticker) {
+    const meme = getMeme()
+    meme.lines.push(createLine(50,`${sticker}`))
+    renderCanvas()
 }
 
 // DOM Stuff

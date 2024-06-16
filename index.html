@@ -74,14 +74,14 @@
                 <input class="control-btn" type="color" id="color-input" style="display: none;" oninput="setTxtColor(this)">
             </div>
             <div class="sticker-section">
-                <button class="carousel-btn" id="prevSticker">❮</button>
+                <button class="carousel-btn" id="prevSticker" onclick="updateCarousel('prev')">❮</button>
                 <div class="carousel">
-                    <div class="sticker" id="sticker1">🎁</div>
-                    <div class="sticker" id="sticker2">👒</div>
-                    <div class="sticker" id="sticker3">👓</div>
-                    <div class="sticker" id="sticker4">👴</div>
+                    <div class="sticker" onclick="renderSticker('🎁')">🎁</div>
+                    <div class="sticker" onclick="renderSticker('👒')">👒</div>
+                    <div class="sticker" onclick="renderSticker('👓')">👓</div>
+                    <div class="sticker" onclick="renderSticker('👴')">👴</div>
                 </div>
-                <button class="carousel-btn" id="nextSticker">❯</button>
+                <button class="carousel-btn" id="nextSticker" onclick="updateCarousel('next')">❯</button>
             </div>
             <div class="util-btns">
               <button class="share-btn" onclick="shareToFacebook()"><i class="fa-solid fa-share"></i> Share</button>
@@ -92,8 +92,8 @@
       
     </main>
     <footer>
-      <p class="footer-text">memegen</p>
-      <p class="footer-text">all rights reserved 2019</p>
+      <p class="footer-text">Memegen</p>
+      <p class="footer-text">All Rights Reserved 2019</p>
     </footer>
     <script src="js/storage.service.js"></script>
     <script src="js/editor.service.js"></script>
